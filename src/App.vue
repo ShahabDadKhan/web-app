@@ -1,25 +1,26 @@
 <template>
   <v-app id="app">
-    <v-navigation-drawer v-model="drawer" app>
-      <!--  -->
-    </v-navigation-drawer>
-
-    <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-
-      <v-toolbar-title> Application</v-toolbar-title>
-    </v-app-bar>
-
+    <navigation />
     <v-main>
+      <!-- <v-container class="fill-height" fluid> -->
       <router-view />
-      <!--  -->
+      <!-- </v-container> -->
     </v-main>
   </v-app>
 </template>
 
 <script>
+import Navigation from "./components/Navigation.vue";
 export default {
+  components: { Navigation },
   name: "app",
   data: () => ({ drawer: false }),
 };
 </script>
+
+<style lang="scss">
+main {
+  background-image: url("./Img/bg.jpg");
+  background-size: cover;
+}
+</style>
