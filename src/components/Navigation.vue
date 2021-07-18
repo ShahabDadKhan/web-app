@@ -4,6 +4,10 @@
       <router-link tag="li" to="/">
         <v-icon color="orange">mdi-home</v-icon> Home</router-link
       >
+      <router-link tag="li" to="/menu">
+        <v-icon color="orange">mdi-silverware</v-icon>
+        Menu</router-link
+      >
       <router-link tag="li" to="/about"
         ><v-icon color="inprogress">mdi-information</v-icon>About</router-link
       >
@@ -28,7 +32,7 @@ export default {
 
 <style lang="scss">
 nav li:first-child {
-  padding: 0;
+  // padding: 0;
   margin-top: 40px;
   text-decoration: none;
 }

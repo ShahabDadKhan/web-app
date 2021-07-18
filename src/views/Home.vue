@@ -53,7 +53,17 @@
 export default {};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.info_box .col h1 {
+  border: 5px solid white;
+  margin-bottom: 5px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+}
+
 .info_box .col div {
   background-color: white;
   padding: 20px;
