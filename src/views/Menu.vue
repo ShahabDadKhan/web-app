@@ -94,10 +94,11 @@
               </p>
             </v-col>
           </v-row>
-          <v-row class="ma-0">
-            <v-col offset-md="9">
-              <v-btn color="orange">Checkout</v-btn>
-            </v-col>
+          <v-row style="margin:0">
+            <v-spacer></v-spacer>
+            <!-- <v-col offset-md="9"> -->
+            <v-btn color="orange">Checkout</v-btn>
+            <!-- </v-col> -->
           </v-row>
         </div>
       </v-col>
@@ -241,5 +242,9 @@ tr td:last-child {
 
 #basket_checkout p:first-child {
   line-height: 2px;
+}
+
+.row:last-child {
+  height: 5vh;
 }
 </style>

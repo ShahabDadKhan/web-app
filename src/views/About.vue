@@ -48,4 +48,9 @@
 export default {};
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.info_box:first-child .col .h1 {
+  font-size: 150%;
+  padding: 50px;
+}
+</style>

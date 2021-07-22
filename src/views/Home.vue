@@ -53,15 +53,22 @@
 export default {};
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .info_box .col h1 {
-  border: 5px solid white;
-  margin-bottom: 5px;
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 16px;
-  color: white;
+  @include infobox_mixin(
+    5px,
+    map-get($colors, white),
+    10px,
+    5px,
+    map-get($colors, white)
+  );
   text-align: center;
+  // border: 5px solid white;
+  // margin-bottom: 5px;
+  // font-weight: bold;
+  // text-transform: uppercase;
+  // font-size: 16px;
+  // color: white;
 }
 
 .info_box .col div {

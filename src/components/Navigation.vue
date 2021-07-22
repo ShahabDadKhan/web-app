@@ -9,12 +9,22 @@
         Menu</router-link
       >
       <router-link tag="li" to="/about"
-        ><v-icon color="inprogress">mdi-information</v-icon>About</router-link
+        ><v-icon color="orange">mdi-information</v-icon>About</router-link
+      >
+      <router-link tag="li" to="/admin">
+        <v-icon color="inprogress">mdi-lock</v-icon>
+        Admin</router-link
       >
     </v-navigation-drawer>
 
     <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = !drawer"> </v-app-bar-nav-icon>
+      <v-app-bar-nav-icon>
+        <v-btn large icon class="" @click="drawer = !drawer">
+          <v-icon flat
+            >mdi-{{ drawer === false ? "format-list-bulleted" : "close" }}
+          </v-icon>
+        </v-btn>
+      </v-app-bar-nav-icon>
 
       <v-toolbar-title class="headline">
         <span>BAGELS BY </span>
@@ -38,8 +48,7 @@ nav li:first-child {
 }
 
 nav li {
-  // color: map-get($colorz, orange);
-  color: orange;
+  color: map-get($colors, orange);
   margin-left: 15%;
   padding: 5px 20px;
   list-style: none;
@@ -53,7 +62,7 @@ nav li i {
 nav li:last-child {
   position: absolute;
   bottom: 40px;
-  // color: map-get($colorz, inprogress);
-  color: orangered;
+  color: map-get($colors, inprogress);
+  // color: orangered;
 }
 </style>

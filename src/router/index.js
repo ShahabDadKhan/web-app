@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Navigation from "../components/Navigation.vue"
 import Menu from "../views/Menu.vue"
+import Admin from "../views/Admin.vue"
+
 
 Vue.use(VueRouter)
 
@@ -21,6 +23,11 @@ const routes = [
     path: '/menu',
     name: 'Menu',
     component: Menu
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin
   },
   {
     path: '/about',
