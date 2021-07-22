@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col md="5" xs="12" offset-sm="1">
-        <h1 class="">Menu items</h1>
+        <h1>Menu items</h1>
         <div class="pa-2" id="info">
           <v-simple-table id="menu-table">
             <template v-slot:default>
@@ -14,7 +14,7 @@
                   <th class="text-left" style="width:100px;">
                     Price
                   </th>
-                  <th class="text-left" style="width:100px;">
+                  <th class="text-center" style="width:100px;">
                     Add to basket
                   </th>
                 </tr>
