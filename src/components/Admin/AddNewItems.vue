@@ -4,17 +4,12 @@
       <v-col md="5" xs="12" offset-sm="1">
         <h1>Add New items</h1>
         <div class="pa-2" id="info">
-          <v-text-field
-            label="Name of Begal"
-            rules
-            v-model="name"
-          ></v-text-field>
+          <v-text-field label="Name of Begal" v-model="name"></v-text-field>
           <v-text-field
             label="Description "
-            rules
             v-model="description"
           ></v-text-field>
-          <v-text-field label="Price" rules v-model="price"></v-text-field>
+          <v-text-field label="Price" v-model="price"></v-text-field>
           <v-row class="ma-0">
             <v-btn @click="addNewMenuItem()" color="complete">Add Item</v-btn>
             <v-spacer></v-spacer>
@@ -44,7 +39,8 @@
                   <span class="menu_item_description">{{ description }}</span>
                 </td>
                 <td class="preview_menuitem_price text-left">
-                  &#8377; {{ price }}
+                  {{ price.length > 0 ? "&#8377;" : "" }}
+                  {{ price }}
                 </td>
               </tr>
             </tbody>

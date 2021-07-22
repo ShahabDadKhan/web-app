@@ -107,6 +107,8 @@
 </template>
 
 <script>
+import { dbMenuAdd } from "../../firebase";
+
 export default {
   data() {
     return {
@@ -139,6 +141,14 @@ export default {
         },
       ],
     };
+  },
+
+  created() {
+    dbMenuAdd.get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+      });
+    });
   },
   methods: {
     addToBasket(item) {
