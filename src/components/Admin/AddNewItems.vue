@@ -15,14 +15,40 @@
             v-model="description"
           ></v-text-field>
           <v-text-field label="Price" rules v-model="price"></v-text-field>
-          <v-btn color="complete">Add Item</v-btn>
-          <v-btn color="incomplete">Cancel</v-btn>
+          <v-row class="ma-0">
+            <v-btn @click="addNewMenuItem()" color="complete">Add Item</v-btn>
+            <v-spacer></v-spacer>
+            <v-btn color="incomplete">Cancel</v-btn>
+          </v-row>
         </div>
       </v-col>
       <v-col md="4" xs="6" offset-sm="1">
         <h1>Current Basket</h1>
         <div class="pa-2" id="info">
-          Right
+          <v-simple-table>
+            <thead>
+              <tr>
+                <th class="text-left" style="width:70%;">
+                  Name
+                </th>
+                <th class="text-left" style="width:100px;">
+                  Price
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="td_name">{{ name }}</span
+                  ><br />
+                  <span class="menu_item_description">{{ description }}</span>
+                </td>
+                <td class="preview_menuitem_price text-left">
+                  &#8377; {{ price }}
+                </td>
+              </tr>
+            </tbody>
+          </v-simple-table>
         </div>
       </v-col>
     </v-row>
@@ -30,63 +56,22 @@
 </template>
 
 <script>
+import { dbMenuAdd } from "../../../firebase";
 export default {
   data() {
     return {
-      basket: [],
-      menuItems: [
-        {
-          name: "Frozen Yogurt",
-          description: "Sugar, stuff & more sugar ",
-          price: 159,
-        },
-        {
-          name: "Ice cream sandwich",
-          description: "Sugar, stuff & more sugar ",
-          price: 237,
-        },
-        {
-          name: "Eclair",
-          description: "Sugar, stuff & more sugar ",
-          price: 262,
-        },
-        {
-          name: "Cupcake",
-          description: "Sugar, stuff & more sugar ",
-          price: 305,
-        },
-        {
-          name: "Gingerbread",
-          description: "Sugar, stuff & more sugar ",
-          price: 356,
-        },
-      ],
+      name: "",
+      description: "",
+      price: "",
     };
   },
   methods: {
-    addToBasket(item) {
-      if (this.basket.find((itemArray) => item.name === itemArray.name)) {
-        item = this.basket.find((itemArray) => item.name === itemArray.name);
-        this.increaseQtn(item);
-      } else {
-        this.basket.push({
-          name: item.name,
-          price: item.price,
-          quantity: 1,
-        });
-      }
-    },
-    increaseQtn(item) {
-      item.quantity++;
-      // item.price = item.quantity * item.price;
-    },
-    decreaseQtn(item) {
-      item.quantity--;
-      console.log(item.price);
-      // item.price = this.price - item.price;
-      if (item.quantity === 0) {
-        this.basket.splice(this.basket.indexOf(item), 1);
-      }
+    addNewMenuItem() {
+      dbMenuAdd.add({
+        name: this.name,
+        description: this.description,
+        price: this.price,
+      });
     },
   },
 

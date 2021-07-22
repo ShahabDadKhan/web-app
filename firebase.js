@@ -14,7 +14,7 @@
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
+  // firebase.analytics();
 
  export const db = firebase.firestore();
  export const dbMenuAdd = db.collection('menuItems')

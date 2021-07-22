@@ -35,7 +35,7 @@
                       item.description
                     }}</span>
                   </td>
-                  <td class="text-center">{{ item.price }}</td>
+                  <td class="text-center">&#8377; {{ item.price }}</td>
                   <td>
                     <v-btn small text @click="addToBasket(item)">
                       <v-icon color="orange" title>mdi-pencil</v-icon>
