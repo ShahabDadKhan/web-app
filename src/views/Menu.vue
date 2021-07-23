@@ -159,16 +159,23 @@ export default {
   },
   methods: {
     addToBasket(item) {
-      if (this.basket.find((itemArray) => item.name === itemArray.name)) {
-        item = this.basket.find((itemArray) => item.name === itemArray.name);
-        this.increaseQtn(item);
-      } else {
-        this.basket.push({
-          name: item.name,
-          price: item.price,
-          quantity: 1,
-        });
-      }
+      // if (this.basket.find((itemArray) => item.name === itemArray.name)) {
+      //   item = this.basket.find((itemArray) => item.name === itemArray.name);
+      //   this.increaseQtn(item);
+      // } else {
+      //   this.basket.push({
+      //     name: item.name,
+      //     price: item.price,
+      //     quantity: 1,
+      //   });
+      // }
+      this.basket.push({
+        name: item.name,
+        price: item.price,
+        quantity: 1,
+      });
+      this.$store.commit("addBasketItems", this.basket);
+      console.log("what is this:", this.basket);
     },
     increaseQtn(item) {
       item.quantity++;
