@@ -24,15 +24,10 @@
               v-model="price"
             ></v-text-field>
             <v-row class="ma-0">
-              <v-btn
-                @click="addNewMenuItem()"
-                :disabled="!valid"
-                color="complete"
-                >Add Item</v-btn
-              >
+              <v-btn @click="addNewMenuItem()" color="complete">Add Item</v-btn>
               <v-btn color="white ml-3" tile @click="reset">Clear</v-btn>
               <v-spacer></v-spacer>
-              <v-btn color="incomplete" to="/admin">Cancel</v-btn>
+              <v-btn color="incomplete" to="/admin">Back</v-btn>
             </v-row>
           </v-form>
         </div>
