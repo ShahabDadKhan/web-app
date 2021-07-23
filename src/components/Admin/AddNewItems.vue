@@ -4,16 +4,33 @@
       <v-col md="5" xs="12" offset-sm="1">
         <h1>Add New items</h1>
         <div class="pa-2" id="info">
-          <v-text-field label="Name of Begal" v-model="name"></v-text-field>
-          <v-text-field
-            label="Description "
-            v-model="description"
-          ></v-text-field>
-          <v-text-field label="Price" v-model="price"></v-text-field>
+          <v-form ref="form" lazy-validation>
+            <v-text-field
+              required
+              label="Name of Begal"
+              :rules="nameRules"
+              v-model="name"
+            ></v-text-field>
+            <v-text-field
+              required
+              label="Description "
+              :rules="descriptionRules"
+              v-model="description"
+            ></v-text-field>
+            <v-text-field
+              required
+              label="Price"
+              :rules="priceRules"
+              v-model="price"
+            ></v-text-field>
+          </v-form>
           <v-row class="ma-0">
-            <v-btn @click="addNewMenuItem()" color="complete">Add Item</v-btn>
+            <v-btn @click="addNewMenuItem()" :disabled="!valid" color="complete"
+              >Add Item</v-btn
+            >
+            <v-btn color="white ml-3" tile @click="reset">Clear</v-btn>
             <v-spacer></v-spacer>
-            <v-btn color="incomplete">Cancel</v-btn>
+            <v-btn color="incomplete" to="/admin">Cancel</v-btn>
           </v-row>
         </div>
       </v-col>
@@ -59,6 +76,18 @@ export default {
       name: "",
       description: "",
       price: "",
+      valid: false,
+      nameRules: [
+        (v) => !!v || "Name is required",
+        (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+      ],
+      descriptionRules: [
+        (v) => !!v || "Description is required",
+        (v) =>
+          (v && v.length <= 10) ||
+          "Description must be less than 10 characters",
+      ],
+      priceRules: [(v) => !!v || "Price is required"],
     };
   },
   methods: {
@@ -68,6 +97,9 @@ export default {
         description: this.description,
         price: this.price,
       });
+    },
+    reset() {
+      this.$refs.form.reset();
     },
   },
 

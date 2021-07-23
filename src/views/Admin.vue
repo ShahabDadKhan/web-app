@@ -42,7 +42,7 @@
                     </v-btn>
                   </td>
                   <td>
-                    <v-btn small text @click="addToBasket(item)">
+                    <v-btn small text @click="deleteItem(item.id)">
                       <v-icon color="orange" title>mdi-delete</v-icon>
                     </v-btn>
                   </td>
@@ -119,40 +119,68 @@
 </template>
 
 <script>
+import { dbMenuAdd } from "../../firebase";
+
 export default {
   data() {
     return {
       basket: [],
       menuItems: [
-        {
-          name: "Frozen Yogurt",
-          description: "Sugar, stuff & more sugar ",
-          price: 159,
-        },
-        {
-          name: "Ice cream sandwich",
-          description: "Sugar, stuff & more sugar ",
-          price: 237,
-        },
-        {
-          name: "Eclair",
-          description: "Sugar, stuff & more sugar ",
-          price: 262,
-        },
-        {
-          name: "Cupcake",
-          description: "Sugar, stuff & more sugar ",
-          price: 305,
-        },
-        {
-          name: "Gingerbread",
-          description: "Sugar, stuff & more sugar ",
-          price: 356,
-        },
+        // {
+        //   name: "Frozen Yogurt",
+        //   description: "Sugar, stuff & more sugar ",
+        //   price: 159,
+        // },
+        // {
+        //   name: "Ice cream sandwich",
+        //   description: "Sugar, stuff & more sugar ",
+        //   price: 237,
+        // },
+        // {
+        //   name: "Eclair",
+        //   description: "Sugar, stuff & more sugar ",
+        //   price: 262,
+        // },
+        // {
+        //   name: "Cupcake",
+        //   description: "Sugar, stuff & more sugar ",
+        //   price: 305,
+        // },
+        // {
+        //   name: "Gingerbread",
+        //   description: "Sugar, stuff & more sugar ",
+        //   price: 356,
+        // },
       ],
     };
   },
+
+  created() {
+    dbMenuAdd.get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+        var MenuItemData = doc.data();
+        this.menuItems.push({
+          id: doc.id,
+          name: MenuItemData.name,
+          description: MenuItemData.description,
+          price: MenuItemData.price,
+        });
+      });
+    });
+  },
   methods: {
+    deleteItem(id) {
+      dbMenuAdd
+        .doc(id)
+        .delete()
+        .then(() => {
+          // console.log("Document successfully deleted!");
+        })
+        .catch((error) => {
+          console.error("Error removing document: ", error);
+        });
+    },
     addToBasket(item) {
       if (this.basket.find((itemArray) => item.name === itemArray.name)) {
         item = this.basket.find((itemArray) => item.name === itemArray.name);
