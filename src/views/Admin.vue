@@ -230,7 +230,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h1 {
+.col h1 {
   border: 5px solid white;
   margin-bottom: 5px;
   font-weight: bold;

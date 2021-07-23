@@ -5,6 +5,8 @@ import Navigation from "../components/Navigation.vue"
 import Menu from "../views/Menu.vue"
 import Admin from "../views/Admin.vue"
 import AddNewItems from "../components/Admin/AddNewItems.vue"
+import Login from "../components/Admin/Login.vue"
+
 
 
 
@@ -36,6 +38,16 @@ const routes = [
     name: 'AddNew',
     component: AddNewItems
   },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '*',
+    redirect:'/',
+  },
+  
   {
     path: '/about',
     name: 'About',

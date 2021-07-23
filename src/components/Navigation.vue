@@ -11,6 +11,9 @@
       <router-link tag="li" to="/about"
         ><v-icon color="orange">mdi-information</v-icon>About</router-link
       >
+      <router-link tag="li" to="/login"
+        ><v-icon color="orange">mdi-account-lock</v-icon>Login</router-link
+      >
       <router-link tag="li" to="/admin">
         <v-icon color="inprogress">mdi-lock</v-icon>
         Admin</router-link

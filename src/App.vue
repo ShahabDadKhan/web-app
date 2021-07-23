@@ -23,4 +23,23 @@ main {
   background-image: url("./Img/bg.jpg");
   background-size: cover;
 }
+
+.col h1 {
+  border: 5px solid white;
+  margin-bottom: 5px;
+  font-weight: bold;
+  padding: 10px;
+  text-transform: uppercase;
+  font-size: 16px;
+  color: white;
+  text-align: right;
+}
+
+.col:last-child h1 {
+  text-align: left;
+}
+
+#info {
+  background: white;
+}
 </style>
