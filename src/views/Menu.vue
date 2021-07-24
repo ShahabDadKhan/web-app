@@ -112,7 +112,7 @@ import { dbMenuAdd } from "../../firebase";
 export default {
   data() {
     return {
-      basket: [],
+      basketDump: [],
       menuItems: [
         // {
         //   name: "Frozen Yogurt",
@@ -146,7 +146,7 @@ export default {
   created() {
     dbMenuAdd.get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
+        // console.log(doc.id, " => ", doc.data());
         var MenuItemData = doc.data();
         this.menuItems.push({
           id: doc.id,
@@ -169,13 +169,14 @@ export default {
       //     quantity: 1,
       //   });
       // }
-      this.basket.push({
+      this.basketDump.push({
         name: item.name,
         price: item.price,
         quantity: 1,
       });
-      this.$store.commit("addBasketItems", this.basket);
-      console.log("what is this:", this.basket);
+      this.$store.commit("addBasketItems", this.basketDump);
+      this.basketDump = [];
+      console.log("what is this", this.basketDump);
     },
     increaseQtn(item) {
       item.quantity++;
@@ -192,6 +193,10 @@ export default {
   },
 
   computed: {
+    basket() {
+      // return this.$store.state.basketItems;
+      return this.$store.getters.getBasketItems;
+    },
     subTotal() {
       var subCost = 0;
       for (var item in this.basket) {
