@@ -7,12 +7,13 @@ export default new Vuex.Store({
   state: {
     basketItems: [
       {
-        name: "Frozen Yogurt",
+        name: "Gingerbread",
         description: "Sugar, stuff & more sugar ",
-        price: 159,
+        price: 356,
         quantity: 1,
       },
     ],
+    currentUser: null,
   },
   mutations: {
     addBasketItems: (state, basketItems) => {
@@ -37,24 +38,19 @@ export default new Vuex.Store({
       }
     },
 
-    //   addBasketItems:(state, basketItems)=>{
-    //     if (basketItems instanceof Array) {
-    //       basketItems.forEach(item => {
-    //         if (state.basketItems.find((itemInArray) => item.name === itemInArray.name)) {
-    //           item = state.basketItems.find((itemInArray) => item.name === itemInArray.name);
-    //           item.quantity++;
-    //     } else {
-    //       state.basketItems.push({
-    //         name: item.name,
-    //         price: item.price,
-    //         quantity: 1,
-    //       })
-    //     }
-    //   })
-    // }
-    //   }
+    userStatus: (state, user) => {
+      if (user) {
+        state.currentUser = user;
+      } else {
+        state.currentUser = null;
+      }
+    },
   },
-  actions: {},
+  actions: {
+    setUser(context, user) {
+      context.commit("userStatus", user);
+    },
+  },
   getters: {
     getBasketItems: (state) => state.basketItems,
   },

@@ -114,11 +114,16 @@ export default {
     return {
       basketDump: [],
       menuItems: [
-        // {
-        //   name: "Frozen Yogurt",
-        //   description: "Sugar, stuff & more sugar ",
-        //   price: 159,
-        // },
+        {
+          name: "Frozen Yogurt",
+          description: "Sugar, stuff & more sugar ",
+          price: 159,
+        },
+        {
+          name: "Cupcake",
+          description: "Sugar, stuff & more sugar ",
+          price: 305,
+        },
         // {
         //   name: "Ice cream sandwich",
         //   description: "Sugar, stuff & more sugar ",
@@ -128,11 +133,6 @@ export default {
         //   name: "Eclair",
         //   description: "Sugar, stuff & more sugar ",
         //   price: 262,
-        // },
-        // {
-        //   name: "Cupcake",
-        //   description: "Sugar, stuff & more sugar ",
-        //   price: 305,
         // },
         // {
         //   name: "Gingerbread",
@@ -184,7 +184,7 @@ export default {
     },
     decreaseQtn(item) {
       item.quantity--;
-      console.log(item.price);
+      // console.log(item.price);
       // item.price = this.price - item.price;
       if (item.quantity === 0) {
         this.basket.splice(this.basket.indexOf(item), 1);

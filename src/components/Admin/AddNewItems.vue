@@ -77,13 +77,13 @@ export default {
       valid: false,
       nameRules: [
         (v) => !!v || "Name is required",
-        (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+        (v) => (v && v.length <= 40) || "Name must be less than 40 characters",
       ],
       descriptionRules: [
         (v) => !!v || "Description is required",
         (v) =>
-          (v && v.length <= 10) ||
-          "Description must be less than 10 characters",
+          (v && v.length <= 30) ||
+          "Description must be less than 30 characters",
       ],
       priceRules: [(v) => !!v || "Price is required"],
     };
