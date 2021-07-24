@@ -53,6 +53,7 @@ export default new Vuex.Store({
   },
   getters: {
     getBasketItems: (state) => state.basketItems,
+    currentUser: (state) => state.currentUser,
   },
   modules: {},
 });

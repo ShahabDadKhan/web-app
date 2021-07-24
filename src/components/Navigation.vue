@@ -1,6 +1,28 @@
 <template>
   <div>
     <v-navigation-drawer color="primary" v-model="drawer" app>
+      <!-- Users' Information -->
+      <div v-if="currentUser">
+        <v-expansion-panels tile>
+          <v-expansion-panel>
+            <v-expansion-panel-header
+              style="background-color:#333333; height: 64px;"
+            >
+              <v-avatar>
+                <img
+                  src="https://cdn.vuetifyjs.com/images/john.jpg"
+                  alt="John"
+                />
+              </v-avatar>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content
+              style="background-color:#333333; color:#fc6d2b;"
+            >
+              <h4 class="text-center">{{ currentUser.email }}</h4>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </div>
       <router-link tag="li" to="/">
         <v-icon color="orange">mdi-home</v-icon> Home</router-link
       >
@@ -38,8 +60,28 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
+import { db } from "../../firebase";
+
+import firebase from "firebase";
+import "firebase/firestore";
+import store from "../store/index.js";
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    store.dispatch("setUser", user);
+  } else {
+    store.dispatch("setUser", null);
+  }
+});
+
 export default {
   data: () => ({ drawer: false }),
+  computed: {
+    currentUser() {
+      return this.$store.getters.currentUser;
+    },
+  },
 };
 </script>
 
