@@ -37,7 +37,12 @@
                   </td>
                   <td class="text-center">&#8377; {{ item.price }}</td>
                   <td>
-                    <v-btn small text @click="addToBasket(item)">
+                    <v-btn
+                      small
+                      text
+                      @click.stop="dialog = !dialog"
+                      @click="editItem(item)"
+                    >
                       <v-icon color="orange" title>mdi-pencil</v-icon>
                     </v-btn>
                   </td>
@@ -115,6 +120,35 @@
         </div>
       </v-col>
     </v-row>
+
+    <!-- Dialog to edit the existing product -->
+    <v-row>
+      <v-dialog v-model="dialog" width="400">
+        <v-card>
+          <h1 class="px-5 pt-5">Edit items</h1>
+          <div class="pa-5" id="info">
+            <v-form ref="form" lazy-validation>
+              <v-text-field v-model="item.name"></v-text-field>
+              <v-text-field v-model="item.description"></v-text-field>
+              <v-text-field v-model="item.price"></v-text-field>
+              <v-row class="ma-0">
+                <v-btn
+                  @click="updateItem()"
+                  @click.stop="dialog = !dialog"
+                  color="complete"
+                  >Edit Item</v-btn
+                >
+                <!-- <v-btn color="white ml-3" tile @click="reset">Clear</v-btn> -->
+                <v-spacer></v-spacer>
+                <v-btn color="incomplete" @click.stop="dialog = !dialog"
+                  >Close</v-btn
+                >
+              </v-row>
+            </v-form>
+          </div>
+        </v-card>
+      </v-dialog>
+    </v-row>
   </v-container>
 </template>
 
@@ -125,6 +159,8 @@ export default {
   data() {
     return {
       basket: [],
+      dialog: false,
+      item: [],
     };
   },
 
@@ -133,6 +169,9 @@ export default {
   },
 
   methods: {
+    editItem(item) {
+      this.item = item;
+    },
     deleteItem(id) {
       dbMenuAdd
         .doc(id)
