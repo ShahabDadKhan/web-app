@@ -67,6 +67,7 @@ import firebase from "firebase";
 import "firebase/firestore";
 import store from "../store/index.js";
 
+// getting user information from firebase
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     store.dispatch("setUser", user);

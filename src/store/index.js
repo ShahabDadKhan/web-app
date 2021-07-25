@@ -1,6 +1,12 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import { dbMenuAdd } from "../../firebase";
+
+// eslint-disable-next-line no-unused-vars
+import firebase from "firebase";
+import "firebase/firestore";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -13,6 +19,7 @@ export default new Vuex.Store({
         quantity: 1,
       },
     ],
+    menuItems: [],
     currentUser: null,
   },
   mutations: {
@@ -45,15 +52,35 @@ export default new Vuex.Store({
         state.currentUser = null;
       }
     },
+
+    setMenuItems: (state) => {
+      let menuItems = [];
+      dbMenuAdd.onSnapshot((snapshotItems) => {
+        (menuItems = []),
+          snapshotItems.forEach((doc) => {
+            var menuItemData = doc.data();
+            menuItems.push({
+              ...menuItemData,
+              // id: menuItemData.id,
+              id: doc.id,
+            });
+          });
+        state.menuItems = menuItems;
+      });
+    },
   },
   actions: {
     setUser(context, user) {
       context.commit("userStatus", user);
     },
+    setMenuItems: (context) => {
+      context.commit("setMenuItems");
+    },
   },
   getters: {
     getBasketItems: (state) => state.basketItems,
     currentUser: (state) => state.currentUser,
+    getMenuItems: (state) => state.menuItems,
   },
   modules: {},
 });

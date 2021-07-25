@@ -125,50 +125,13 @@ export default {
   data() {
     return {
       basket: [],
-      menuItems: [
-        // {
-        //   name: "Frozen Yogurt",
-        //   description: "Sugar, stuff & more sugar ",
-        //   price: 159,
-        // },
-        // {
-        //   name: "Ice cream sandwich",
-        //   description: "Sugar, stuff & more sugar ",
-        //   price: 237,
-        // },
-        // {
-        //   name: "Eclair",
-        //   description: "Sugar, stuff & more sugar ",
-        //   price: 262,
-        // },
-        // {
-        //   name: "Cupcake",
-        //   description: "Sugar, stuff & more sugar ",
-        //   price: 305,
-        // },
-        // {
-        //   name: "Gingerbread",
-        //   description: "Sugar, stuff & more sugar ",
-        //   price: 356,
-        // },
-      ],
     };
   },
 
-  created() {
-    dbMenuAdd.get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
-        var MenuItemData = doc.data();
-        this.menuItems.push({
-          id: doc.id,
-          name: MenuItemData.name,
-          description: MenuItemData.description,
-          price: MenuItemData.price,
-        });
-      });
-    });
+  beforeCreate() {
+    return this.$store.dispatch("setMenuItems");
   },
+
   methods: {
     deleteItem(id) {
       dbMenuAdd
@@ -208,6 +171,9 @@ export default {
   },
 
   computed: {
+    menuItems() {
+      return this.$store.getters.getMenuItems;
+    },
     subTotal() {
       var subCost = 0;
       for (var item in this.basket) {
