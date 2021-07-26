@@ -23,6 +23,11 @@
               :rules="priceRules"
               v-model="price"
             ></v-text-field>
+            <v-file-input
+              show-size
+              @change="uploadImage"
+              label="File input"
+            ></v-file-input>
             <v-row class="ma-0">
               <v-btn @click="addNewMenuItem()" color="complete">Add Item</v-btn>
               <v-btn color="white ml-3" tile @click="reset">Clear</v-btn>
@@ -67,13 +72,15 @@
 </template>
 
 <script>
-import { dbMenuAdd } from "../../../firebase";
+import { dbMenuAdd, fb } from "../../../firebase";
+// import firebase from "firebase";
 export default {
   data() {
     return {
       name: "",
       description: "",
       price: "",
+      image: null,
       valid: false,
       nameRules: [
         (v) => !!v || "Name is required",
@@ -89,11 +96,38 @@ export default {
     };
   },
   methods: {
+    uploadImage(e) {
+      let file = e;
+      console.log(e);
+      var storageRef = fb.storage().ref("products/" + file.name);
+
+      // eslint-disable-next-line no-unused-vars
+      let uploadTask = storageRef.put(file);
+
+      uploadTask.on(
+        "state_changed",
+        // eslint-disable-next-line no-unused-vars
+        (snapshot) => {},
+        // eslint-disable-next-line no-unused-vars
+        (error) => {
+          // Handle unsuccessful uploads
+        },
+        () => {
+          // Handle successful uploads on complete
+          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            this.image = downloadURL;
+            console.log("File available at", downloadURL);
+          });
+        }
+      );
+    },
     addNewMenuItem() {
       dbMenuAdd.add({
         name: this.name,
         description: this.description,
         price: this.price,
+        image: this.image,
       });
     },
     reset() {
