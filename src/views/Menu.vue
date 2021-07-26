@@ -114,16 +114,16 @@ export default {
     return {
       basketDump: [],
       menuItems: [
-        {
-          name: "Frozen Yogurt",
-          description: "Sugar, stuff & more sugar ",
-          price: 159,
-        },
-        {
-          name: "Cupcake",
-          description: "Sugar, stuff & more sugar ",
-          price: 305,
-        },
+        // {
+        //   name: "Frozen Yogurt",
+        //   description: "Sugar, stuff & more sugar ",
+        //   price: 159,
+        // },
+        // {
+        //   name: "Cupcake",
+        //   description: "Sugar, stuff & more sugar ",
+        //   price: 305,
+        // },
         // {
         //   name: "Ice cream sandwich",
         //   description: "Sugar, stuff & more sugar ",

@@ -1,5 +1,12 @@
 <template>
   <v-container fluid>
+    <v-snackbar v-model="updatedSuccess" :timeout="timeout" top right>
+      {{ updatedText }}
+
+      <v-btn color="pink" text @click="updatedSuccess = !updatedSuccess">
+        Close
+      </v-btn>
+    </v-snackbar>
     <v-row>
       <v-col md="5" xs="12" offset-sm="1">
         <h1>Current Bagels in Menu items</h1>
@@ -161,6 +168,10 @@ export default {
       basket: [],
       dialog: false,
       item: [],
+      activeEditItem: null,
+      updatedSuccess: false,
+      updatedText: "Menu Item has been updated",
+      timeout: 2500,
     };
   },
 
@@ -171,6 +182,20 @@ export default {
   methods: {
     editItem(item) {
       this.item = item;
+      this.activeEditItem = item.id;
+    },
+    updateItem() {
+      dbMenuAdd
+        .doc(this.activeEditItem)
+        .update(this.item)
+        .then(() => {
+          console.log("Document successfully updated!");
+          this.updatedSuccess = true;
+        })
+        .catch((error) => {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+        });
     },
     deleteItem(id) {
       dbMenuAdd
