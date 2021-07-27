@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col md="5" xs="12" offset-sm="1">
+      <v-col md="5" sm="6" cols="12" offset-sm="1">
         <h1>Add New items</h1>
         <div class="pa-2" id="info">
           <v-form ref="form" lazy-validation>
@@ -29,7 +29,12 @@
               label="File input"
             ></v-file-input>
             <v-row class="ma-0">
-              <v-btn @click="addNewMenuItem()" color="complete">Add Item</v-btn>
+              <v-btn
+                @click="addNewMenuItem()"
+                color="complete"
+                :disabled="btnDisabled"
+                >Add Item</v-btn
+              >
               <v-btn color="white ml-3" tile @click="reset">Clear</v-btn>
               <v-spacer></v-spacer>
               <v-btn color="incomplete" to="/admin">Back</v-btn>
@@ -37,7 +42,9 @@
           </v-form>
         </div>
       </v-col>
-      <v-col md="4" xs="6" offset-sm="1">
+      <!-- </v-row>
+    <v-row md="8" xs="6"> -->
+      <v-col md="4" sm="4" cols="12" offset-sm="1">
         <h1>Current Basket</h1>
         <div class="pa-2" id="info">
           <v-simple-table>
@@ -81,7 +88,7 @@ export default {
       description: "",
       price: "",
       image: null,
-      valid: false,
+      btnDisabled: true,
       nameRules: [
         (v) => !!v || "Name is required",
         (v) => (v && v.length <= 40) || "Name must be less than 40 characters",
@@ -95,6 +102,7 @@ export default {
       priceRules: [(v) => !!v || "Price is required"],
     };
   },
+
   methods: {
     uploadImage(e) {
       let file = e;
@@ -117,6 +125,7 @@ export default {
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
             this.image = downloadURL;
+            this.btnDisabled = false;
             console.log("File available at", downloadURL);
           });
         }
@@ -132,6 +141,9 @@ export default {
     },
     reset() {
       this.$refs.form.reset();
+    },
+    validate() {
+      this.$refs.form.validate();
     },
   },
 

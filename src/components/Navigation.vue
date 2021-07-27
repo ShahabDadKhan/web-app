@@ -24,20 +24,26 @@
         </v-expansion-panels>
       </div>
       <router-link tag="li" to="/">
-        <v-icon color="orange">mdi-home</v-icon> Home</router-link
+        <v-icon class="mb-2" color="orange">mdi-home</v-icon> Home</router-link
       >
       <router-link tag="li" to="/menu">
-        <v-icon color="orange">mdi-silverware</v-icon>
+        <v-icon class="mb-2" color="orange">mdi-silverware</v-icon>
         Menu</router-link
       >
       <router-link tag="li" to="/about"
-        ><v-icon color="orange">mdi-information</v-icon>About</router-link
+        ><v-icon class="mb-2" color="orange">mdi-information</v-icon
+        >About</router-link
       >
       <router-link tag="li" to="/login"
-        ><v-icon color="orange">mdi-account-lock</v-icon>Login</router-link
+        ><v-icon class="mb-2" color="orange">mdi-account-lock</v-icon
+        >Login</router-link
+      >
+      <router-link tag="li" to="/order" class="complete--text"
+        ><v-icon class="mb-2" color="complete">mdi-chart-bar</v-icon
+        >Order</router-link
       >
       <router-link tag="li" to="/admin">
-        <v-icon color="inprogress">mdi-lock</v-icon>
+        <v-icon class="mb-2" color="inprogress">mdi-lock</v-icon>
         Admin</router-link
       >
     </v-navigation-drawer>
@@ -96,6 +102,7 @@ nav li:first-child {
 nav li {
   color: map-get($colors, orange);
   margin-left: 15%;
+  margin-top: 2%;
   padding: 5px 20px;
   list-style: none;
   cursor: pointer;

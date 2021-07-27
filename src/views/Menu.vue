@@ -8,6 +8,7 @@
             <template v-slot:default>
               <thead>
                 <tr>
+                  <th></th>
                   <th class="text-left" style="width:70%;">
                     Name of items
                   </th>
@@ -21,6 +22,9 @@
               </thead>
               <tbody>
                 <tr v-for="item in menuItems" :key="item.name">
+                  <td id="td_menuitem_img">
+                    <v-img :src="item.image"></v-img>
+                  </td>
                   <td>
                     <span id="td_name">{{ item.name }}</span
                     ><br />
@@ -107,68 +111,48 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
 import { dbMenuAdd } from "../../firebase";
 
 export default {
   data() {
     return {
       basketDump: [],
-      menuItems: [
-        // {
-        //   name: "Frozen Yogurt",
-        //   description: "Sugar, stuff & more sugar ",
-        //   price: 159,
-        // },
-        // {
-        //   name: "Cupcake",
-        //   description: "Sugar, stuff & more sugar ",
-        //   price: 305,
-        // },
-        // {
-        //   name: "Ice cream sandwich",
-        //   description: "Sugar, stuff & more sugar ",
-        //   price: 237,
-        // },
-        // {
-        //   name: "Eclair",
-        //   description: "Sugar, stuff & more sugar ",
-        //   price: 262,
-        // },
-        // {
-        //   name: "Gingerbread",
-        //   description: "Sugar, stuff & more sugar ",
-        //   price: 356,
-        // },
-      ],
+      // menuItems: [
+      //   // {
+      //   //   name: "Frozen Yogurt",
+      //   //   description: "Sugar, stuff & more sugar ",
+      //   //   price: 159,
+      //   // },
+      //   // {
+      //   //   name: "Cupcake",
+      //   //   description: "Sugar, stuff & more sugar ",
+      //   //   price: 305,
+      //   // },
+      //   // {
+      //   //   name: "Ice cream sandwich",
+      //   //   description: "Sugar, stuff & more sugar ",
+      //   //   price: 237,
+      //   // },
+      //   // {
+      //   //   name: "Eclair",
+      //   //   description: "Sugar, stuff & more sugar ",
+      //   //   price: 262,
+      //   // },
+      //   // {
+      //   //   name: "Gingerbread",
+      //   //   description: "Sugar, stuff & more sugar ",
+      //   //   price: 356,
+      //   // },
+      // ],
     };
   },
 
-  created() {
-    dbMenuAdd.get().then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        // console.log(doc.id, " => ", doc.data());
-        var MenuItemData = doc.data();
-        this.menuItems.push({
-          id: doc.id,
-          name: MenuItemData.name,
-          description: MenuItemData.description,
-          price: MenuItemData.price,
-        });
-      });
-    });
+  beforeCreate() {
+    return this.$store.dispatch("setMenuItems");
   },
   methods: {
     addToBasket(item) {
-      // if (this.basket.find((itemArray) => item.name === itemArray.name)) {
-      //   item = this.basket.find((itemArray) => item.name === itemArray.name);
-      //   this.increaseQtn(item);
-      // } else {
-      //   this.basket.push({
-      //     name: item.name,
-      //     price: item.price,
-      //     quantity: 1,
-      //   });
-      // }
       this.basketDump.push({
         name: item.name,
         price: item.price,
@@ -176,7 +160,7 @@ export default {
       });
       this.$store.commit("addBasketItems", this.basketDump);
       this.basketDump = [];
-      console.log("what is this", this.basketDump);
+      // console.log("what is this", this.basketDump);
     },
     increaseQtn(item) {
       item.quantity++;
@@ -185,7 +169,6 @@ export default {
     decreaseQtn(item) {
       item.quantity--;
       // console.log(item.price);
-      // item.price = this.price - item.price;
       if (item.quantity === 0) {
         this.basket.splice(this.basket.indexOf(item), 1);
       }
@@ -193,6 +176,9 @@ export default {
   },
 
   computed: {
+    menuItems() {
+      return this.$store.getters.getMenuItems;
+    },
     basket() {
       // return this.$store.state.basketItems;
       return this.$store.getters.getBasketItems;
@@ -263,6 +249,12 @@ tr td:last-child {
   font-weight: 300;
   color: darkgray;
   font-size: 13px;
+}
+
+#td_menuitem_img {
+  max-width: 40px;
+  max-height: 40px;
+  padding: 0px;
 }
 
 #basket_checkout {
