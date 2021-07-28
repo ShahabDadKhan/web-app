@@ -113,6 +113,8 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import { dbMenuAdd } from "../../firebase";
+// eslint-disable-next-line no-unused-vars
+import store from "../store";
 
 export default {
   data() {
@@ -154,6 +156,7 @@ export default {
   methods: {
     addCheckoutItem() {
       this.$store.dispatch("setCheckoutItem");
+      console.log(this.$store.state.basketItems);
     },
     addToBasket(item) {
       this.basketDump.push({

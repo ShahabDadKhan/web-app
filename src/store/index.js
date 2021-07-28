@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { dbMenuAdd } from "../../firebase";
+import { dbMenuAdd, dbOrders } from "../../firebase";
 
 // eslint-disable-next-line no-unused-vars
 import firebase from "firebase";
@@ -11,18 +11,20 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    basketItems: [
-      {
-        name: "Gingerbread",
-        description: "Sugar, stuff & more sugar ",
-        price: 356,
-        quantity: 1,
-      },
-    ],
+    basketItems: [],
     menuItems: [],
+    orderItems: [],
     currentUser: null,
   },
   mutations: {
+    // eslint-disable-next-line no-unused-vars
+    addCheckoutItem: (state, basketItems) => {
+      dbOrders.add({
+        orderNumber: 2,
+        status: "not started",
+        orderLine: state.basketItems,
+      });
+    },
     addBasketItems: (state, basketItems) => {
       if (basketItems instanceof Array) {
         basketItems.forEach((item) => {
@@ -68,6 +70,22 @@ export default new Vuex.Store({
         state.menuItems = menuItems;
       });
     },
+
+    setOrderItems: (state) => {
+      let orderItems = [];
+      dbOrders.onSnapshot((snapshotItems) => {
+        (orderItems = []),
+          snapshotItems.forEach((doc) => {
+            var orderItemData = doc.data();
+            orderItems.push({
+              ...orderItemData,
+              // id: menuItemData.id,
+              id: doc.id,
+            });
+          });
+        state.orderItems = orderItems;
+      });
+    },
   },
   actions: {
     setCheckoutItem(context) {
@@ -78,6 +96,9 @@ export default new Vuex.Store({
     },
     setMenuItems: (context) => {
       context.commit("setMenuItems");
+    },
+    setOrderItems: (context) => {
+      context.commit("setOrderItems");
     },
   },
   getters: {

@@ -89,17 +89,37 @@
                 </tr>
               </thead>
               <tbody class="font-weight-light">
-                <tr v-for="item in menuItems" :key="item.name">
-                  <td>{{ item.price }}</td>
-                  <td>
-                    {{ item.price }}
+                <tr v-for="item in orderItems" :key="item.name">
+                  <td>{{ item.orderNumber }}</td>
+                  <td class="py-3">
+                    <p
+                      class="ma-0"
+                      v-for="subitem in item.orderLine"
+                      :key="subitem.id"
+                    >
+                      {{ subitem.quantity }}
+                    </p>
                   </td>
-                  <td>{{ item.name }}</td>
-                  <td>
-                    {{ item.price }}
+                  <td class="py-3">
+                    <p
+                      class="ma-0"
+                      v-for="subitem in item.orderLine"
+                      :key="subitem.id"
+                    >
+                      {{ subitem.name }}
+                    </p>
+                  </td>
+                  <td class="py-3">
+                    <p
+                      class="ma-0"
+                      v-for="subitem in item.orderLine"
+                      :key="subitem.id"
+                    >
+                      {{ subitem.price }}
+                    </p>
                   </td>
                   <td>
-                    <v-chip color="complete">COMPLETED</v-chip>
+                    <v-chip color="complete">{{ item.status }}</v-chip>
                   </td>
                   <td>
                     <v-btn text @click="addToBasket(item)">
@@ -140,7 +160,7 @@ export default {
   },
 
   beforeCreate() {
-    return this.$store.dispatch("setMenuItems");
+    return this.$store.dispatch("setOrderItems");
   },
   methods: {
     addToBasket(item) {
@@ -167,8 +187,8 @@ export default {
   },
 
   computed: {
-    menuItems() {
-      return this.$store.getters.getMenuItems;
+    orderItems() {
+      return this.$store.getters.getOrderItems;
     },
     basket() {
       // return this.$store.state.basketItems;
