@@ -15,13 +15,16 @@ export default new Vuex.Store({
     menuItems: [],
     orderItems: [],
     currentUser: null,
+    counter: 0,
   },
   mutations: {
     // eslint-disable-next-line no-unused-vars
     addCheckoutItem: (state, basketItems) => {
       dbOrders.add({
-        orderNumber: 2,
-        status: "not started",
+        archive: false,
+        storeOrder: false,
+        orderNumber: state.counter,
+        status: "incomplete",
         orderLine: state.basketItems,
       });
     },

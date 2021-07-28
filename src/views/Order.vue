@@ -61,7 +61,7 @@
           <p class="font-weight-bold body-1 pa-3 darkgrey--text">
             Orders
           </p>
-          <v-simple-table id="menu-table">
+          <v-simple-table id="menu-table" v-if="orderItems.length">
             <template v-slot:default>
               <thead>
                 <tr>
@@ -119,21 +119,32 @@
                     </p>
                   </td>
                   <td>
-                    <v-chip color="complete">{{ item.status }}</v-chip>
+                    <v-chip
+                      :color="item.status"
+                      @click="switchStage(item.id)"
+                      >{{ item.status }}</v-chip
+                    >
                   </td>
                   <td>
-                    <v-btn text @click="addToBasket(item)">
+                    <v-btn text @click="archiveOrderItems(item.id)">
                       <v-icon color="darkgrey" title>mdi-package-down</v-icon>
                     </v-btn>
                   </td>
                   <td>
-                    <v-btn text @click="addToBasket(item)">
+                    <v-btn text @click="deletOrderItems(item.id)">
                       <v-icon color="incomplete" title>mdi-delete</v-icon>
                     </v-btn>
                   </td>
                 </tr>
               </tbody>
             </template>
+          </v-simple-table>
+          <v-simple-table class="pa-2" v-else>
+            <div>
+              <p class="red--text">
+                No Orders for today 😏
+              </p>
+            </div>
           </v-simple-table>
         </div>
       </v-col>
@@ -149,8 +160,7 @@
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
-import { dbMenuAdd } from "../../firebase";
+import { dbOrders } from "../../firebase";
 
 export default {
   data() {
@@ -163,6 +173,55 @@ export default {
     return this.$store.dispatch("setOrderItems");
   },
   methods: {
+    switchStage(id) {
+      let selectedOrderItem = this.orderItems.filter(
+        (item) => item.id === id
+      )[0];
+
+      if (selectedOrderItem.status === "inprogress") {
+        dbOrders
+          .doc(id)
+          .update({
+            status: "complete",
+          })
+          .then(() => {});
+      } else if (selectedOrderItem.status === "incomplete") {
+        dbOrders
+          .doc(id)
+          .update({
+            status: "inprogress",
+          })
+          .then(() => {});
+      } else if (selectedOrderItem.status === "complete") {
+        dbOrders
+          .doc(id)
+          .update({
+            status: "incomplete",
+          })
+          .then(() => {});
+      }
+    },
+
+    archiveOrderItems(id) {
+      dbOrders
+        .doc(id)
+        .update({
+          archive: true,
+          storeOrder: true,
+        })
+        .then(() => {});
+    },
+    deletOrderItems(id) {
+      dbOrders
+        .doc(id)
+        .delete()
+        .then(() => {
+          console.log("item deleted successfully");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     addToBasket(item) {
       this.basketDump.push({
         name: item.name,
