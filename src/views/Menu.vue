@@ -101,7 +101,7 @@
           <v-row style="margin:0">
             <v-spacer></v-spacer>
             <!-- <v-col offset-md="9"> -->
-            <v-btn color="orange">Checkout</v-btn>
+            <v-btn color="orange" @click="addCheckoutItem()">Checkout</v-btn>
             <!-- </v-col> -->
           </v-row>
         </div>
@@ -152,6 +152,9 @@ export default {
     return this.$store.dispatch("setMenuItems");
   },
   methods: {
+    addCheckoutItem() {
+      this.$store.dispatch("setCheckoutItem");
+    },
     addToBasket(item) {
       this.basketDump.push({
         name: item.name,

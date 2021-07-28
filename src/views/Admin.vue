@@ -3,7 +3,7 @@
     <v-snackbar v-model="updatedSuccess" :timeout="timeout" top right>
       {{ updatedText }}
 
-      <v-btn color="pink" text @click="updatedSuccess = !updatedSuccess">
+      <v-btn color="pink" text @click="updatedSuccess = false">
         Close
       </v-btn>
     </v-snackbar>
@@ -190,6 +190,7 @@ export default {
         .update(this.item)
         .then(() => {
           console.log("Document successfully updated!");
+          // this.updatedSuccess = true;
           this.updatedSuccess = true;
         })
         .catch((error) => {

@@ -38,7 +38,11 @@
         ><v-icon class="mb-2" color="orange">mdi-account-lock</v-icon
         >Login</router-link
       >
-      <router-link tag="li" to="/order" class="complete--text"
+      <router-link
+        tag="li"
+        v-if="currentUser"
+        to="/order"
+        class="complete--text"
         ><v-icon class="mb-2" color="complete">mdi-chart-bar</v-icon
         >Order</router-link
       >

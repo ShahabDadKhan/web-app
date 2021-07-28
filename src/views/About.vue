@@ -53,4 +53,17 @@ export default {};
   font-size: 150%;
   padding: 50px;
 }
+
+.info_box .col div {
+  background-color: white;
+  padding: 20px;
+}
+
+.row:first-child {
+  height: 40vh;
+}
+
+.row:last-child {
+  height: 40vh;
+}
 </style>

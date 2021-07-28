@@ -70,6 +70,9 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    setCheckoutItem(context) {
+      context.commit("addCheckoutItem");
+    },
     setUser(context, user) {
       context.commit("userStatus", user);
     },
@@ -81,6 +84,7 @@ export default new Vuex.Store({
     getBasketItems: (state) => state.basketItems,
     currentUser: (state) => state.currentUser,
     getMenuItems: (state) => state.menuItems,
+    getOrderItems: (state) => state.orderItems,
   },
   modules: {},
 });

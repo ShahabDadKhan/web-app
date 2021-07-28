@@ -53,7 +53,7 @@
 export default {};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .info_box .col h1 {
   @include infobox_mixin(
     5px,
@@ -69,6 +69,16 @@ export default {};
   // text-transform: uppercase;
   // font-size: 16px;
   // color: white;
+}
+
+.info_box:first-child .col .h1 {
+  font-size: 150%;
+  padding: 50px;
+}
+
+.info_box .col div {
+  background-color: white;
+  padding: 20px;
 }
 
 .info_box .col div {
