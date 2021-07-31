@@ -156,7 +156,7 @@ export default {
   methods: {
     addCheckoutItem() {
       this.$store.dispatch("setCheckoutItem");
-      console.log(this.$store.state.basketItems);
+      console.log("hello", this.$store.state.basketItems);
     },
     addToBasket(item) {
       this.basketDump.push({

@@ -1,3 +1,4 @@
+/* eslint-disable vue/no-use-v-if-with-v-for */
 <template>
   <v-container fluid>
     <v-row class="ma-0">
@@ -40,9 +41,9 @@
 
             <v-col cols="12" md="6" class="pa-2">
               <v-row class="mb-2">
-                <v-chip color="complete">COMPLETED</v-chip>
-                <v-chip color="inprogress mx-3">IN-PROGRESS</v-chip>
-                <v-chip color="incomplete">NOT STARTED</v-chip>
+                <v-chip color="complete my-2">COMPLETED</v-chip>
+                <v-chip color="inprogress mx-3 my-2">IN-PROGRESS</v-chip>
+                <v-chip color="incomplete my-2">NOT STARTED</v-chip>
               </v-row>
               <v-row>
                 <p class="font-weight-bold caption pl-1">
@@ -89,12 +90,16 @@
                 </tr>
               </thead>
               <tbody class="font-weight-light">
-                <tr v-for="item in orderItems" :key="item.name">
+                <tr
+                  v-for="item in orderItems"
+                  :key="item.name"
+                  v-if="item.storeOrder === false"
+                >
                   <td>{{ item.orderNumber }}</td>
                   <td class="py-3">
                     <p
                       class="ma-0"
-                      v-for="subitem in item.orderLine"
+                      v-for="subitem in item.orderLines"
                       :key="subitem.id"
                     >
                       {{ subitem.quantity }}
@@ -103,7 +108,7 @@
                   <td class="py-3">
                     <p
                       class="ma-0"
-                      v-for="subitem in item.orderLine"
+                      v-for="subitem in item.orderLines"
                       :key="subitem.id"
                     >
                       {{ subitem.name }}
@@ -112,7 +117,7 @@
                   <td class="py-3">
                     <p
                       class="ma-0"
-                      v-for="subitem in item.orderLine"
+                      v-for="subitem in item.orderLines"
                       :key="subitem.id"
                     >
                       {{ subitem.price }}
@@ -151,9 +156,36 @@
       <v-col md="4" xs="6">
         <h1>Revenue</h1>
         <div class="pa-2" id="info">
-          Revenue
+          <p class="font-weight-1 body-1 darkgrey--text">Completed Orders:</p>
+          <div>
+            <p id="totalOrders">
+              Total orders:
+              <span class="incomplete--text font-weight-bold">{{
+                orderItems.length
+              }}</span>
+            </p>
+          </div>
+          <div id="revenueList" v-for="item in orderItems" :key="item.name">
+            <p v-if="item.archive">
+              <span style="text-decoration: underline">
+                Order No:
+                {{ item.orderNumber }}
+              </span>
+
+              <v-btn small text @click="deletOrderItems(item.id)">
+                <v-icon color="incomplete">mdi-delete</v-icon>
+              </v-btn>
+            </p>
+          </div>
         </div>
-        <div class="pa-2" id="info">Completed Order</div>
+        <div class="pa-2 mt-1" id="info">
+          <div id="totalRevenue">
+            <p id="totalRevenueText">
+              Total Revenue:
+              <span id="totalRevenueTextTotal">{{ revenueTotal }}</span>
+            </p>
+          </div>
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -232,17 +264,6 @@ export default {
       this.basketDump = [];
       // console.log("what is this", this.basketDump);
     },
-    increaseQtn(item) {
-      item.quantity++;
-      // item.price = item.quantity * item.price;
-    },
-    decreaseQtn(item) {
-      item.quantity--;
-      // console.log(item.price);
-      if (item.quantity === 0) {
-        this.basket.splice(this.basket.indexOf(item), 1);
-      }
-    },
   },
 
   computed: {
@@ -253,22 +274,17 @@ export default {
       // return this.$store.state.basketItems;
       return this.$store.getters.getBasketItems;
     },
-    subTotal() {
-      var subCost = 0;
-      for (var item in this.basket) {
-        var individualItem = this.basket[item];
-        subCost += individualItem.quantity * individualItem.price;
-      }
-      return subCost;
-    },
-    total() {
-      if (this.subTotal !== 0) {
-        var deliverPrice = 10;
-        var totalCost = this.subTotal;
-        return totalCost + deliverPrice;
-      } else {
-        return (totalCost = 0);
-      }
+    revenueTotal() {
+      var revenueIncome = 0;
+
+      this.orderItems.forEach((element) => {
+        if (element.archive === true) {
+          element.orderLines.forEach((el) => {
+            revenueIncome += el.price * el.quantity;
+          });
+        }
+      });
+      return revenueIncome;
     },
   },
 };
@@ -278,4 +294,27 @@ export default {
 .row {
   margin: 0px;
 }
+
+#totalRevenue {
+  padding: 20px 10px 20px 0px;
+  display: flex;
+}
+#totalRevenueText {
+  display: flex;
+  margin: 0px;
+  justify-content: space-between;
+  font-style: italic;
+  width: 100%;
+}
+
+#totalRevenueTextTotal {
+  text-decoration: underline;
+  border-bottom: 1px solid #000;
+  font-weight: bold;
+  font-style: normal;
+}
+
+// #revenueList {
+//   text-decoration: underline;
+// }
 </style>

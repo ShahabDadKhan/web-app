@@ -1,5 +1,13 @@
 <template>
   <v-container fluid>
+    <v-snackbar v-model="updated" :timeout="timeout" top right>
+      {{ addedItem }}
+
+      <v-btn color="pink" text @click="updated = false">
+        Close
+      </v-btn>
+    </v-snackbar>
+
     <v-row>
       <v-col md="5" sm="6" cols="12" offset-sm="1">
         <h1>Add New items</h1>
@@ -42,8 +50,7 @@
           </v-form>
         </div>
       </v-col>
-      <!-- </v-row>
-    <v-row md="8" xs="6"> -->
+
       <v-col md="4" sm="4" cols="12" offset-sm="1">
         <h1>Current Basket</h1>
         <div class="pa-2" id="info">
@@ -80,7 +87,6 @@
 
 <script>
 import { dbMenuAdd, fb } from "../../../firebase";
-// import firebase from "firebase";
 export default {
   data() {
     return {
@@ -89,6 +95,12 @@ export default {
       price: "",
       image: null,
       btnDisabled: true,
+      updated: false,
+      deleted: false,
+      timeout: 2500,
+      addedItem: "Menu Item has been added",
+      deleteItem: "Menu Item has been deleted successfully",
+
       nameRules: [
         (v) => !!v || "Name is required",
         (v) => (v && v.length <= 40) || "Name must be less than 40 characters",
@@ -138,6 +150,7 @@ export default {
         price: this.price,
         image: this.image,
       });
+      this.updated = true;
     },
     reset() {
       this.$refs.form.reset();

@@ -11,23 +11,37 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    counter: 0,
     basketItems: [],
     menuItems: [],
     orderItems: [],
     currentUser: null,
-    counter: 0,
   },
   mutations: {
+    // // eslint-disable-next-line no-unused-vars
+    // addCheckoutItem: (state, basketItems) => {
+    //   dbOrders.add({
+    //     archive: false,
+    //     storeOrder: false,
+    //     orderNumber: state.counter++,
+    //     status: "incomplete",
+    //     // basketItems: state.basketItems,
+    //     orderLines: state.basketItems,
+    //   });
+    //   console.log(this.orderLines);
+    // },
+
     // eslint-disable-next-line no-unused-vars
     addCheckoutItem: (state, basketItems) => {
       dbOrders.add({
         archive: false,
         storeOrder: false,
-        orderNumber: state.counter,
+        orderNumber: state.counter++,
         status: "incomplete",
-        orderLine: state.basketItems,
+        orderLines: state.basketItems,
       });
     },
+
     addBasketItems: (state, basketItems) => {
       if (basketItems instanceof Array) {
         basketItems.forEach((item) => {
@@ -93,6 +107,7 @@ export default new Vuex.Store({
   actions: {
     setCheckoutItem(context) {
       context.commit("addCheckoutItem");
+      console.log("hello this is action");
     },
     setUser(context, user) {
       context.commit("userStatus", user);

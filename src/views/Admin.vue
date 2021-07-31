@@ -7,9 +7,16 @@
         Close
       </v-btn>
     </v-snackbar>
+    <v-snackbar v-model="deleted" :timeout="timeout" top right>
+      {{ deleteItemSuccessfully }}
+
+      <v-btn color="pink" text @click="deleted = false">
+        Close
+      </v-btn>
+    </v-snackbar>
     <v-row>
       <v-col md="5" xs="12" offset-sm="1">
-        <h1>Current Bagels in Menu items</h1>
+        <h1>Current Bagels in Menu Items</h1>
         <div class="pa-2" id="info">
           <v-simple-table id="menu-table">
             <template v-slot:default>
@@ -47,7 +54,7 @@
                     <v-btn
                       small
                       text
-                      @click.stop="dialog = !dialog"
+                      @click.stop="dialog = true"
                       @click="editItem(item)"
                     >
                       <v-icon color="orange" title>mdi-pencil</v-icon>
@@ -170,8 +177,12 @@ export default {
       item: [],
       activeEditItem: null,
       updatedSuccess: false,
+      updated: false,
       updatedText: "Menu Item has been updated",
+      // addedItem: "Menu Item has been added",
       timeout: 2500,
+      deleted: false,
+      deleteItemSuccessfully: "Menu Item has been deleted successfully",
     };
   },
 
@@ -208,6 +219,7 @@ export default {
         .catch((error) => {
           console.error("Error removing document: ", error);
         });
+      this.deleted = true;
     },
     addToBasket(item) {
       if (this.basket.find((itemArray) => item.name === itemArray.name)) {

@@ -7,6 +7,7 @@ import Admin from "../views/Admin.vue";
 import AddNewItems from "../components/Admin/AddNewItems.vue";
 import Login from "../components/Admin/Login.vue";
 import Order from "../views/Order.vue";
+import Service from "../views/Service.vue";
 
 import firebase from "firebase";
 import "firebase/firestore";
@@ -49,6 +50,11 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+  },
+  {
+    path: "/service",
+    name: "Service",
+    component: Service,
   },
   {
     path: "/order",

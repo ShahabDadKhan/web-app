@@ -38,6 +38,10 @@
         ><v-icon class="mb-2" color="orange">mdi-account-lock</v-icon
         >Login</router-link
       >
+      <router-link tag="li" to="/service"
+        ><v-icon class="mb-2" color="orange">mdi-account-lock</v-icon>Customer
+        Service</router-link
+      >
       <router-link
         tag="li"
         v-if="currentUser"
@@ -121,5 +125,13 @@ nav li:last-child {
   bottom: 40px;
   color: map-get($colors, inprogress);
   // color: orangered;
+}
+
+// .v-toolbar__content::v-deep .v-toolbar__extension {
+//   padding: 0px !important;
+// }
+
+::v-deep .v-toolbar__content {
+  padding: 0px !important;
 }
 </style>
