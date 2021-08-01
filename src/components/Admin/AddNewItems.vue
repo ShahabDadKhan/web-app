@@ -159,26 +159,6 @@ export default {
       this.$refs.form.validate();
     },
   },
-
-  computed: {
-    subTotal() {
-      var subCost = 0;
-      for (var item in this.basket) {
-        var individualItem = this.basket[item];
-        subCost += individualItem.quantity * individualItem.price;
-      }
-      return subCost;
-    },
-    total() {
-      if (this.subTotal !== 0) {
-        var deliverPrice = 10;
-        var totalCost = this.subTotal;
-        return totalCost + deliverPrice;
-      } else {
-        return (totalCost = 0);
-      }
-    },
-  },
 };
 </script>
 
@@ -216,25 +196,6 @@ tr td {
 
 tr td:last-child {
   text-align: end;
-}
-
-// tr td {
-//   text-align: center;
-// }
-
-#menu_item_description {
-  font-style: italic;
-  font-weight: 300;
-  color: darkgray;
-  font-size: 13px;
-}
-
-#basket_checkout {
-  font-size: 13px;
-}
-
-#basket_checkout p:first-child {
-  line-height: 2px;
 }
 
 .row:last-child {

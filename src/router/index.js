@@ -8,6 +8,7 @@ import AddNewItems from "../components/Admin/AddNewItems.vue";
 import Login from "../components/Admin/Login.vue";
 import Order from "../views/Order.vue";
 import Service from "../views/Service.vue";
+import Bill from "../views/Bill.vue";
 
 import firebase from "firebase";
 import "firebase/firestore";
@@ -55,6 +56,11 @@ const routes = [
     path: "/service",
     name: "Service",
     component: Service,
+  },
+  {
+    path: "/bill",
+    name: "Bill",
+    component: Bill,
   },
   {
     path: "/order",

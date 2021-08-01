@@ -254,16 +254,6 @@ export default {
           console.log(error);
         });
     },
-    addToBasket(item) {
-      this.basketDump.push({
-        name: item.name,
-        price: item.price,
-        quantity: 1,
-      });
-      this.$store.commit("addBasketItems", this.basketDump);
-      this.basketDump = [];
-      // console.log("what is this", this.basketDump);
-    },
   },
 
   computed: {
@@ -313,8 +303,4 @@ export default {
   font-weight: bold;
   font-style: normal;
 }
-
-// #revenueList {
-//   text-decoration: underline;
-// }
 </style>

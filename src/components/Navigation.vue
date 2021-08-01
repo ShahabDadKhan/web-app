@@ -39,9 +39,13 @@
         >Login</router-link
       >
       <router-link tag="li" to="/service"
-        ><v-icon class="mb-2" color="orange">mdi-account-lock</v-icon>Customer
+        ><v-icon class="mb-2" color="orange">mdi-face-agent</v-icon>Customer
         Service</router-link
       >
+      <router-link tag="li" to="/bill"
+        ><v-icon class="mb-2" color="orange">mdi-notebook-edit-outline</v-icon
+        >Bill
+      </router-link>
       <router-link
         tag="li"
         v-if="currentUser"

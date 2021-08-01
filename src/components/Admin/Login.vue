@@ -20,14 +20,6 @@
               label="Password"
               required
             ></v-text-field>
-
-            <!-- <v-checkbox
-              v-model="checkbox"
-              :rules="[(v) => !!v || 'You must agree to continue!']"
-              label="Do you agree?"
-              required
-            ></v-checkbox> -->
-
             <v-btn
               :disabled="!valid"
               color="success"

@@ -63,12 +63,6 @@ export default {};
     map-get($colors, white)
   );
   text-align: center;
-  // border: 5px solid white;
-  // margin-bottom: 5px;
-  // font-weight: bold;
-  // text-transform: uppercase;
-  // font-size: 16px;
-  // color: white;
 }
 
 .info_box:first-child .col .h1 {

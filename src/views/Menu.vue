@@ -120,33 +120,6 @@ export default {
   data() {
     return {
       basketDump: [],
-      // menuItems: [
-      //   // {
-      //   //   name: "Frozen Yogurt",
-      //   //   description: "Sugar, stuff & more sugar ",
-      //   //   price: 159,
-      //   // },
-      //   // {
-      //   //   name: "Cupcake",
-      //   //   description: "Sugar, stuff & more sugar ",
-      //   //   price: 305,
-      //   // },
-      //   // {
-      //   //   name: "Ice cream sandwich",
-      //   //   description: "Sugar, stuff & more sugar ",
-      //   //   price: 237,
-      //   // },
-      //   // {
-      //   //   name: "Eclair",
-      //   //   description: "Sugar, stuff & more sugar ",
-      //   //   price: 262,
-      //   // },
-      //   // {
-      //   //   name: "Gingerbread",
-      //   //   description: "Sugar, stuff & more sugar ",
-      //   //   price: 356,
-      //   // },
-      // ],
     };
   },
 
@@ -157,6 +130,7 @@ export default {
     addCheckoutItem() {
       this.$store.dispatch("setCheckoutItem");
       console.log("hello", this.$store.state.basketItems);
+      this.$router.push("/bill");
     },
     addToBasket(item) {
       this.basketDump.push({
@@ -166,15 +140,12 @@ export default {
       });
       this.$store.commit("addBasketItems", this.basketDump);
       this.basketDump = [];
-      // console.log("what is this", this.basketDump);
     },
     increaseQtn(item) {
       item.quantity++;
-      // item.price = item.quantity * item.price;
     },
     decreaseQtn(item) {
       item.quantity--;
-      // console.log(item.price);
       if (item.quantity === 0) {
         this.basket.splice(this.basket.indexOf(item), 1);
       }
@@ -245,10 +216,6 @@ tr td {
 tr td:last-child {
   text-align: end;
 }
-
-// tr td {
-//   text-align: center;
-// }
 
 #menu_item_description {
   font-style: italic;

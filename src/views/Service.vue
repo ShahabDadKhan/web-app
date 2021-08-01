@@ -25,7 +25,7 @@
               If you order after 9 AM IST on Thursday, or anytime on a Friday,
               Saturday or Sunday, your order will ship the following Monday and
               arrive on Tuesday, unless you select Saturday Delivery option
-              (&#8377; 14 fee).
+              (&#8377; 10 fee).
             </v-expansion-panel-content>
           </v-expansion-panel>
           <v-expansion-panel>
