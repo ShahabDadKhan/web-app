@@ -125,8 +125,8 @@ nav li i {
 }
 
 nav li:last-child {
-  position: absolute;
-  bottom: 40px;
+  // position: absolute;
+  // bottom: 40px;
   color: map-get($colors, inprogress);
   // color: orangered;
 }

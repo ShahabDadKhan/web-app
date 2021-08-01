@@ -82,7 +82,11 @@
           </v-simple-table>
 
           <v-simple-table class="pa-2" v-else>
-            The Basket is empty
+            <span class="font-weight-bold black--text">
+              If there aren't bagels, did Friday even happen?
+            </span>
+            <br />
+            [The Basket is empty]
           </v-simple-table>
           <v-row id="basket_checkout" class="mt-2 ma-0">
             <v-col>
