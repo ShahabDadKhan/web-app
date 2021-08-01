@@ -15,7 +15,13 @@
               >Your Bill is : {{ total }}</v-expansion-panel-header
             >
             <v-expansion-panel-content>
-              <div>Happy Enjoying Our Tasty Bagels 🍩😋</div>
+              <div>
+                {{
+                  total === 0
+                    ? "Your basket is empty. Add Bagels to the basket"
+                    : "Happy Enjoying Our Tasty Bagels 🍩😋"
+                }}
+              </div>
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
